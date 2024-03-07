@@ -6,9 +6,14 @@ namespace GamePlay
     public class PlayerPunch : MonoBehaviour
     {
         private InputManager _playerInput;
-        public void Initialize(InputManager playerInput)
+        private PlayerStatus _playerStatus;
+        private Transform _punchPosition;
+
+        public void Initialize(InputManager playerInput, PlayerStatus playerStatus ,Transform punchPosition)
         {
             _playerInput = playerInput;
+            _playerStatus = playerStatus;
+            _punchPosition = punchPosition;
         }
     }
 }

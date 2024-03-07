@@ -7,6 +7,7 @@ namespace GamePlay
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private PlayerStatus _status;
+        [SerializeField] private Transform _punchPoint;
 
         private PlayerMover _playerMover;
         private PlayerPunch _playerPunch;
@@ -34,7 +35,7 @@ namespace GamePlay
             _playerMover.Initialize(_status, RigidBody);
 
             _playerPunch = gameObject.AddComponent<PlayerPunch>();
-            _playerPunch.Initialize(_inputManager);
+            _playerPunch.Initialize(_inputManager, _status, _punchPoint);
         }
 
         private void Dispose()
@@ -50,12 +51,14 @@ namespace GamePlay
             _playerPunch.enabled = _isGameRunning;
             _playerMover.enabled = _isGameRunning;
         }
-
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.magenta;
-            //Gizmos.DrawRay(start.position, target.position);
+            if (_punchPoint != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(_punchPoint.position, _status.PunchRadius);
+            }
         }
 #endif
     }
