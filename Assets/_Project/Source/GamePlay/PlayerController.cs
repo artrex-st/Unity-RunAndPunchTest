@@ -42,6 +42,7 @@ namespace GamePlay
         {
             new ResponseGameStateUpdateEvent().RemoveListener(HandlerRequestNewGameStateEvent);
             _playerMover.Dispose();
+            _playerPunch.Dispose();
         }
 
         private void HandlerRequestNewGameStateEvent(ResponseGameStateUpdateEvent e)

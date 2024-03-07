@@ -1,3 +1,5 @@
+using InputSystem;
+using System;
 using UnityEngine;
 
 namespace GamePlay {
@@ -16,7 +18,7 @@ namespace GamePlay {
     {
         private static readonly int Move = Animator.StringToHash("Move");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-        //private bool _isGameRunning;
+        private static readonly int Punch = Animator.StringToHash("Punch");
 
         private Animator Animator => GetComponent<Animator>();
 
@@ -34,6 +36,8 @@ namespace GamePlay {
         {
             new ResponseGameStateUpdateEvent().AddListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().AddListener(HandlerRequestMoveAnimationEvent);
+            new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
+
         }
 
         private void HandlerRequestNewGameStateEvent(ResponseGameStateUpdateEvent e)
@@ -45,6 +49,11 @@ namespace GamePlay {
         {
             Animator.SetFloat(Move, e.Speed);
             Animator.SetBool(IsMoving, e.Speed != 0);
+        }
+
+        private void HandlerRequestInputPressEvent(RequestInputPressEvent e)
+        {
+            Animator.SetTrigger(Punch);
         }
 
         private void Dispose()

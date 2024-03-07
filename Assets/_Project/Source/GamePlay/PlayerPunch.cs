@@ -1,4 +1,5 @@
 using InputSystem;
+using System;
 using UnityEngine;
 
 namespace GamePlay
@@ -14,6 +15,39 @@ namespace GamePlay
             _playerInput = playerInput;
             _playerStatus = playerStatus;
             _punchPosition = punchPosition;
+            new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
+        }
+
+        public void Dispose()
+        {
+            new RequestInputPressEvent().RemoveListener(HandlerRequestInputPressEvent);
+        }
+
+        private void HandlerRequestInputPressEvent(RequestInputPressEvent e)
+        {
+            Debug.Log($"Press Input! {e.CurrentPhase}");
+            Vector3 center = transform.position;
+
+            Collider[] results = new Collider[3];
+            int size = Physics.OverlapSphereNonAlloc(center, _playerStatus.PunchRadius, results, _playerStatus.HittableLayer);
+
+            if (size != 0)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    if (results[i].TryGetComponent(out IHittable hittable))
+                    {
+                        hittable.OnHit(this);
+                    }
+                    Debug.Log($"Hit: {results[i].gameObject.name}");
+                }
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(_punchPosition.position, _playerStatus.PunchRadius+1f);
         }
     }
 }

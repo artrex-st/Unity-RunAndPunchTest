@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 10
   _rotationSpeed: 150
-  _punchRadius: 1
+  _punchRadius: 2
+  _hittableLayer:
+    serializedVersion: 2
+    m_Bits: 128
