@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStatus_Base
   m_EditorClassIdentifier: 
   _moveSpeed: 10
-  _rotationSpeed: 150
+  _rotationSpeed: 200
   _punchRadius: 2
   _hittableLayer:
     serializedVersion: 2
