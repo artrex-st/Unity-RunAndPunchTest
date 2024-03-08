@@ -13,12 +13,23 @@ namespace GamePlay {
         }
     }
 
+    public readonly struct ResponsePunchAnimationEvent : IEvent
+    {
+        public readonly int InstanceId;
+
+        public ResponsePunchAnimationEvent(int speed)
+        {
+            InstanceId = speed;
+        }
+    }
+
     [RequireComponent(typeof(Animator))]
     public class PlayerAnimatorManager : MonoBehaviour
     {
         private static readonly int Move = Animator.StringToHash("Move");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Punch = Animator.StringToHash("Punch");
+        private bool _canPunch = true;
 
         private Animator Animator => GetComponent<Animator>();
 
@@ -37,6 +48,7 @@ namespace GamePlay {
             new ResponseGameStateUpdateEvent().AddListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().AddListener(HandlerRequestMoveAnimationEvent);
             new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
+            new ResponsePunchAnimationEvent().AddListener(HandlerResponsePunchAnimationEvent);
 
         }
 
@@ -53,13 +65,26 @@ namespace GamePlay {
 
         private void HandlerRequestInputPressEvent(RequestInputPressEvent e)
         {
-            Animator.SetTrigger(Punch);
+            if (_canPunch)
+            {
+                Animator.SetTrigger(Punch);
+                _canPunch = false;
+            }
+        }
+
+        private void HandlerResponsePunchAnimationEvent(ResponsePunchAnimationEvent e)
+        {
+            if (e.InstanceId == transform.parent.GetInstanceID())
+            {
+                _canPunch = true;
+            }
         }
 
         private void Dispose()
         {
             new ResponseGameStateUpdateEvent().RemoveListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().RemoveListener(HandlerRequestMoveAnimationEvent);
+            new ResponsePunchAnimationEvent().RemoveListener(HandlerResponsePunchAnimationEvent);
         }
     }
 }

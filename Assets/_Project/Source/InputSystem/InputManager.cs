@@ -70,8 +70,6 @@ namespace InputSystem {
             _inputsActions.Player.Axis_Y.canceled += RotateY;
 
             _inputsActions.Player.Press.started += PressStarted;
-            _inputsActions.Player.Press.performed += PressStarted;
-            _inputsActions.Player.Press.canceled += PressStarted;
         }
 
         private void MoveX(InputAction.CallbackContext context)
@@ -99,6 +97,7 @@ namespace InputSystem {
         {
             _inputsActions.Player.Axis_X.Dispose();
             _inputsActions.Player.Axis_Y.Dispose();
+            _inputsActions.Player.Press.Dispose();
         }
     }
 }

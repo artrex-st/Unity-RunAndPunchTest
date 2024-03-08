@@ -18,3 +18,4 @@ MonoBehaviour:
   _hittableLayer:
     serializedVersion: 2
     m_Bits: 128
+  _maxHitPerAttack: 3

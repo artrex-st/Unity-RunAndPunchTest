@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GamePlay
 {
@@ -9,6 +10,8 @@ namespace GamePlay
     [RequireComponent(typeof(Collider))]
     public class Enemy : MonoBehaviour, IHittable
     {
+        public bool IsKnockDown { get; private set; }
+
         [SerializeField] private Transform _ragdollRoot;
 
         private Animator Animator => GetComponent<Animator>();
@@ -18,14 +21,10 @@ namespace GamePlay
         private CharacterJoint[] Joints => _ragdollRoot.GetComponentsInChildren<CharacterJoint>();
         private Collider[] Colliders => _ragdollRoot.GetComponentsInChildren<Collider>();
 
+
         private void Start()
         {
             SetRagdoll(false);
-        }
-
-        public Rigidbody GetRigidBody()
-        {
-            return RigidBody;
         }
 
         public void OnHit(PlayerPunch puncher)
@@ -37,6 +36,7 @@ namespace GamePlay
 
         private void SetRagdoll(bool enable)
         {
+            IsKnockDown = enable;
             Animator.enabled = !enable;
             Collider.enabled = !enable;
 
@@ -56,12 +56,6 @@ namespace GamePlay
                 ragRigidBody.useGravity = enable;
                 ragRigidBody.velocity = Vector3.zero;
             }
-        }
-
-        private async void PunchImpulse()
-        {
-            await Task.Delay(100);
-            RigidBody.isKinematic = true;
         }
     }
 }

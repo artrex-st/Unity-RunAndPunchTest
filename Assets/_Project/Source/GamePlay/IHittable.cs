@@ -1,9 +1,7 @@
 using GamePlay;
-using UnityEngine;
 
 public interface IHittable
 {
-    public Rigidbody GetRigidBody();
-
+    public bool IsKnockDown { get; }
     public void OnHit(PlayerPunch puncher);
 }
