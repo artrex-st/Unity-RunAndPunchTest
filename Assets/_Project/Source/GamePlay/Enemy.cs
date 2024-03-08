@@ -1,7 +1,4 @@
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GamePlay
 {
@@ -13,6 +10,8 @@ namespace GamePlay
         public bool IsKnockDown { get; private set; }
 
         [SerializeField] private Transform _ragdollRoot;
+        [SerializeField] private float _hitForce = 50f;
+        [SerializeField] private float _hitUpForce = 1f;
 
         private Animator Animator => GetComponent<Animator>();
         private Rigidbody RigidBody => GetComponent<Rigidbody>();
@@ -24,21 +23,27 @@ namespace GamePlay
 
         private void Start()
         {
-            SetRagdoll(false);
+            SetRagdoll(false, Vector3.zero);
         }
 
-        public void OnHit(PlayerPunch puncher)
+        public void OnHit(PlayerPunch puncher, Vector3 direction)
         {
             //TODO: go to BackPack, disable primary rigidbody and colision
             Debug.Log($"{puncher.gameObject.name} Hit Me ({gameObject.name})");
-            SetRagdoll(true);
+            SetRagdoll(true, direction);
         }
 
-        private void SetRagdoll(bool enable)
+        private void SetRagdoll(bool enable, Vector3 direction)
         {
             IsKnockDown = enable;
             Animator.enabled = !enable;
             Collider.enabled = !enable;
+
+            if (direction != Vector3.zero)
+            {
+                direction = (transform.position - direction).normalized * _hitForce;
+                direction += Vector3.up * _hitUpForce;
+            }
 
             foreach (CharacterJoint ragJoint in Joints)
             {
@@ -54,7 +59,7 @@ namespace GamePlay
             {
                 ragRigidBody.detectCollisions = enable;
                 ragRigidBody.useGravity = enable;
-                ragRigidBody.velocity = Vector3.zero;
+                ragRigidBody.velocity = direction;
             }
         }
     }

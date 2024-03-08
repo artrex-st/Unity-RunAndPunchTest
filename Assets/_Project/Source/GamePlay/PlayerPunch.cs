@@ -47,7 +47,7 @@ namespace GamePlay
                     Debug.Log($"Hit: {results[i].gameObject.name}");
                     if (results[i].TryGetComponent(out IHittable hittable))
                     {
-                        hittable.OnHit(this);
+                        hittable.OnHit(this, transform.position);
                     }
                 }
             }
