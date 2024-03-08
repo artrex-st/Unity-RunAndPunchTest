@@ -2,29 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace InputSystem {
-    public readonly struct InputXEvent : IEvent
+    public readonly struct InputMoveEvent : IEvent
     {
+        public readonly float MoveDirection;
         public readonly float MoveRotation;
         public readonly double Duration;
         public readonly InputActionPhase CurrentPhase;
 
-        public InputXEvent(float moveRotation, double duration, InputActionPhase currentPhase)
+        public InputMoveEvent(float moveDirection, float moveRotation, double duration, InputActionPhase currentPhase)
         {
+            MoveDirection = moveDirection;
             MoveRotation = moveRotation;
-            Duration = duration;
-            CurrentPhase = currentPhase;
-        }
-    }
-
-    public readonly struct InputYEvent : IEvent
-    {
-        public readonly float MoveForward;
-        public readonly double Duration;
-        public readonly InputActionPhase CurrentPhase;
-
-        public InputYEvent(float moveForward, double duration, InputActionPhase currentPhase)
-        {
-            MoveForward = moveForward;
             Duration = duration;
             CurrentPhase = currentPhase;
         }
@@ -61,28 +49,19 @@ namespace InputSystem {
             _inputsActions = new InputActions();
             _inputsActions.Player.Enable();
 
-            _inputsActions.Player.Axis_X.started += MoveX;
-            _inputsActions.Player.Axis_X.performed += MoveX;
-            _inputsActions.Player.Axis_X.canceled += MoveX;
+            _inputsActions.Player.Move.started += MoveX;
+            _inputsActions.Player.Move.performed += MoveX;
+            _inputsActions.Player.Move.canceled += MoveX;
 
-            _inputsActions.Player.Axis_Y.started += RotateY;
-            _inputsActions.Player.Axis_Y.performed += RotateY;
-            _inputsActions.Player.Axis_Y.canceled += RotateY;
-
-            _inputsActions.Player.Press.started += PressStarted;
+            _inputsActions.Player.Hit.started += HitStarted;
         }
 
         private void MoveX(InputAction.CallbackContext context)
         {
-            new InputXEvent(context.ReadValue<float>(), context.duration, context.phase).Invoke();
+            new InputMoveEvent(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x, context.duration, context.phase).Invoke();
         }
 
-        private void RotateY(InputAction.CallbackContext context)
-        {
-            new InputYEvent(context.ReadValue<float>(), context.duration, context.phase).Invoke();
-        }
-
-        private void PressStarted(InputAction.CallbackContext context)
+        private void HitStarted(InputAction.CallbackContext context)
         {
             new RequestInputPressEvent(context.duration, context.phase).Invoke();
         }
@@ -95,9 +74,8 @@ namespace InputSystem {
 
         private void Dispose()
         {
-            _inputsActions.Player.Axis_X.Dispose();
-            _inputsActions.Player.Axis_Y.Dispose();
-            _inputsActions.Player.Press.Dispose();
+            _inputsActions.Player.Move.Dispose();
+            _inputsActions.Player.Hit.Dispose();
         }
     }
 }

@@ -1079,7 +1079,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Axis_X => m_Wrapper.m_Player_Axis_X;
         public InputAction @Axis_Y => m_Wrapper.m_Player_Axis_Y;
         public InputAction @Point => m_Wrapper.m_Player_Point;
-        public InputAction @Press => m_Wrapper.m_Player_Press;
+        public InputAction Hit => m_Wrapper.m_Player_Press;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1101,9 +1101,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Point.started += instance.OnPoint;
             @Point.performed += instance.OnPoint;
             @Point.canceled += instance.OnPoint;
-            @Press.started += instance.OnPress;
-            @Press.performed += instance.OnPress;
-            @Press.canceled += instance.OnPress;
+            Hit.started += instance.Hit;
+            Hit.performed += instance.Hit;
+            Hit.canceled += instance.Hit;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1120,9 +1120,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Point.started -= instance.OnPoint;
             @Point.performed -= instance.OnPoint;
             @Point.canceled -= instance.OnPoint;
-            @Press.started -= instance.OnPress;
-            @Press.performed -= instance.OnPress;
-            @Press.canceled -= instance.OnPress;
+            Hit.started -= instance.Hit;
+            Hit.performed -= instance.Hit;
+            Hit.canceled -= instance.Hit;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1309,7 +1309,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAxis_X(InputAction.CallbackContext context);
         void OnAxis_Y(InputAction.CallbackContext context);
         void OnPoint(InputAction.CallbackContext context);
-        void OnPress(InputAction.CallbackContext context);
+        void Hit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

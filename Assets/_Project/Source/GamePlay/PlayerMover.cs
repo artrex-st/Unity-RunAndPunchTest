@@ -6,7 +6,7 @@ namespace GamePlay
     public class PlayerMover : MonoBehaviour
     {
         private PlayerStatus _status;
-        private float _inputForward;
+        private float _inputSpeed;
         private float _inputRotation;
         private Rigidbody _rigidBody;
 
@@ -14,14 +14,12 @@ namespace GamePlay
         {
             _status = status;
             _rigidBody = rigidBody;
-            new InputXEvent().AddListener(HandlerStartInputRotationEvent);
-            new InputYEvent().AddListener(HandlerStartInputForwardEvent);
+            new InputMoveEvent().AddListener(HandlerStartInputRotationEvent);
         }
 
         public void Dispose()
         {
-            new InputXEvent().RemoveListener(HandlerStartInputRotationEvent);
-            new InputYEvent().RemoveListener(HandlerStartInputForwardEvent);
+            new InputMoveEvent().RemoveListener(HandlerStartInputRotationEvent);
         }
 
         private void Update()
@@ -43,20 +41,16 @@ namespace GamePlay
 
         private void ApplySpeed()
         {
-            Vector3 speed = transform.forward * (_inputForward * _status.MoveSpeed);
+            Vector3 speed = transform.forward * (_inputSpeed * _status.MoveSpeed);
             speed.y = _rigidBody.velocity.y;
             _rigidBody.velocity = speed;
         }
 
-        private void HandlerStartInputForwardEvent(InputYEvent e)
-        {
-            _inputForward = e.MoveForward;
-            new RequestMoveAnimationEvent(_inputForward).Invoke();
-        }
-
-        private void HandlerStartInputRotationEvent(InputXEvent e)
+        private void HandlerStartInputRotationEvent(InputMoveEvent e)
         {
             _inputRotation = e.MoveRotation;
+            _inputSpeed = e.MoveDirection;
+            new RequestMoveAnimationEvent(_inputSpeed).Invoke();
         }
     }
 }

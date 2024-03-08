@@ -42,7 +42,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Press",
+                    "name": "Hit",
                     "type": "Button",
                     "id": "900127ed-146a-418d-8e1f-39931ffcb8bd",
                     "expectedControlType": "Button",
@@ -367,7 +367,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Press",
+                    "action": "Hit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -378,7 +378,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Press",
+                    "action": "Hit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
