@@ -47,8 +47,8 @@ namespace GamePlay {
         {
             new ResponseGameStateUpdateEvent().AddListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().AddListener(HandlerRequestMoveAnimationEvent);
-            new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
             new ResponsePunchAnimationEvent().AddListener(HandlerResponsePunchAnimationEvent);
+            new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
 
         }
 
@@ -85,6 +85,7 @@ namespace GamePlay {
             new ResponseGameStateUpdateEvent().RemoveListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().RemoveListener(HandlerRequestMoveAnimationEvent);
             new ResponsePunchAnimationEvent().RemoveListener(HandlerResponsePunchAnimationEvent);
+            new RequestInputPressEvent().RemoveListener(HandlerRequestInputPressEvent);
         }
     }
 }

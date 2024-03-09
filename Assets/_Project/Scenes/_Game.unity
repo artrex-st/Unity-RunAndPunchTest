@@ -172,10 +172,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Woman_2
       objectReference: {fileID: 0}
-    - target: {fileID: 5230678061154220407, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 1428854696}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1384,10 +1380,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Woman
       objectReference: {fileID: 0}
-    - target: {fileID: 5230678061154220407, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 1456347124}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2405,8 +2397,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107553375}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36837345, y: 0.000000015996395, z: -0.0000000063383756, w: 0.9296779}
-  m_LocalPosition: {x: -4.29, y: 8, z: -22.11}
+  m_LocalRotation: {x: 0.35538056, y: 0.000000011350722, z: -0.0000000043155377, w: 0.9347217}
+  m_LocalPosition: {x: -4.29, y: 8, z: -22.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2478,11 +2470,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 109611886}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &116322916 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1089683205275541816, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-  m_PrefabInstance: {fileID: 2014584950}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &125566881
 PrefabInstance:
@@ -5200,10 +5187,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5427309053304346343, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 1580050025}
     - target: {fileID: 5040285462309829405, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.37
@@ -8184,8 +8167,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455802224}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.36837345, y: 0.000000015996395, z: -0.0000000063383756, w: 0.9296779}
-  m_LocalPosition: {x: -4.29, y: 8, z: -22.11}
+  m_LocalRotation: {x: 0.35538056, y: 0.000000011350722, z: -0.0000000043155377, w: 0.9347217}
+  m_LocalPosition: {x: -4.29, y: 8, z: -22.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11571,10 +11554,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5427309053304346343, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 720857765}
     - target: {fileID: 5040285462309829405, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.04
@@ -14034,11 +14013,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 720571452}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &720857765 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4758160769239570843, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-  m_PrefabInstance: {fileID: 633690482}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &723007577
 PrefabInstance:
@@ -22820,11 +22794,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a14aae991a324a4e991020d3e45b646, type: 3}
---- !u!4 &1130695898 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4758160769239570843, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-  m_PrefabInstance: {fileID: 1226189851}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1133734023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24420,10 +24389,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5427309053304346343, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 1130695898}
     - target: {fileID: 5040285462309829405, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.15
@@ -28830,11 +28795,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 1428825563}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1428854696 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1089683205275541816, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-  m_PrefabInstance: {fileID: 1748379}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1429412098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29454,11 +29414,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 1450549910}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1456347124 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1089683205275541816, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-  m_PrefabInstance: {fileID: 72132355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1456875996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30000,11 +29955,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7483944779921017658, guid: dc6683fa63ddc41f28d3e735c624c03c, type: 3}
   m_PrefabInstance: {fileID: 1481353476}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1485699233 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1089683205275541816, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-  m_PrefabInstance: {fileID: 1548280244}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1489036871
 PrefabInstance:
@@ -32129,10 +32079,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Woman_1
       objectReference: {fileID: 0}
-    - target: {fileID: 5230678061154220407, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 1485699233}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32619,11 +32565,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 1577570781}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1580050025 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4758160769239570843, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-  m_PrefabInstance: {fileID: 286896878}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1580484908
 PrefabInstance:
@@ -34868,10 +34809,10 @@ MonoBehaviour:
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.4
-  m_DeadZoneHeight: 0.4
-  m_SoftZoneWidth: 0.56
-  m_SoftZoneHeight: 0.4
+  m_DeadZoneWidth: 0.3
+  m_DeadZoneHeight: 0.35
+  m_SoftZoneWidth: 0.55
+  m_SoftZoneHeight: 0.55
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -34900,7 +34841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 8, z: -8.51}
+  m_FollowOffset: {x: 0, y: 8, z: -9}
   m_XDamping: 0.5
   m_YDamping: 0.5
   m_ZDamping: 0.5
@@ -40246,10 +40187,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5427309053304346343, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 2062595755}
     - target: {fileID: 5040285462309829405, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.93
@@ -40351,10 +40288,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Woman_3
       objectReference: {fileID: 0}
-    - target: {fileID: 5230678061154220407, guid: a03becde0b05a3d4b87069169cad6244, type: 3}
-      propertyPath: _ragdollRoot
-      value: 
-      objectReference: {fileID: 116322916}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41059,11 +40992,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1972827015468797060, guid: 44db3442b975e4903a341e94633313fc, type: 3}
   m_PrefabInstance: {fileID: 2060324613}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2062595755 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4758160769239570843, guid: 80f33d94c3fb38a4b9d2a147a6a8651e, type: 3}
-  m_PrefabInstance: {fileID: 2006317375}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2065728751
 PrefabInstance:

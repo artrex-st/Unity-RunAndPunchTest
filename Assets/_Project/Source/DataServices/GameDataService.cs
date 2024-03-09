@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Utility;
 
 public enum GameStates
 {
@@ -41,11 +42,11 @@ public class GameDataService : MonoBehaviour, IGameDataService
     {
         if (newGameState == CurrentGameState)
         {
-            Debug.Log($"<color=Yellow>Game State Not changed!</color>");
+            this.LogEditorOnly($"<color=Yellow>Game State Not changed!</color>");
             return;
         }
 
-        Debug.Log($"<color=Green>Game State changed from: {CurrentGameState} to {newGameState}!</color>");
+        this.LogEditorOnly($"<color=Green>Game State changed from: {CurrentGameState} to {newGameState}!</color>");
         CurrentGameState = newGameState;
         new ResponseGameStateUpdateEvent(CurrentGameState).Invoke();
     }

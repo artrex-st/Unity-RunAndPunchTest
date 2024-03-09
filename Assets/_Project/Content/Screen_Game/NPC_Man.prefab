@@ -1079,7 +1079,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8334448997324032270}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 583d399de55c1f54f86e48a12febc200, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1108,8 +1108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ragdollRoot: {fileID: 4758160769239570843}
-  _hitForce: 10
-  _hitUpForce: 1
+  _hitForce: 50
+  _hitUpForce: 30
   _secondsToBackPack: 1
 --- !u!1 &8370451465952218214 stripped
 GameObject:

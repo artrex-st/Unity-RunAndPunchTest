@@ -27,35 +27,36 @@ namespace GamePlay
         [SerializeField] private float _hitUpForce = 1f;
         [SerializeField] private float _secondsToBackPack = 1f;
 
+        private Rigidbody RigidBody => GetComponent<Rigidbody>();
         private Animator Animator => GetComponent<Animator>();
         private Collider Collider => GetComponent<Collider>();
         private Rigidbody[] RigidBodies => _ragdollRoot.GetComponentsInChildren<Rigidbody>();
         private CharacterJoint[] Joints => _ragdollRoot.GetComponentsInChildren<CharacterJoint>();
         private Collider[] Colliders => _ragdollRoot.GetComponentsInChildren<Collider>();
 
-
-        private void Start()
+        private void OnEnable()
         {
-            SetRagdoll(false, Vector3.zero, false);
+            SetRagdoll(false, Vector3.zero);
         }
 
         public void OnHit(PlayerPunch player, Vector3 direction)
         {
             this.LogEditorOnly($"{player.gameObject.name} Hit Me ({gameObject.name})");
-            SetRagdoll(true, direction, true);
+            SetRagdoll(true, direction);
             //TODO: go to BackPack
             StartBagPackEvent();
         }
 
-        private void SetRagdoll(bool enable, Vector3 direction, bool useGravity)
+        private void SetRagdoll(bool enable, Vector3 direction)
         {
             IsKnockDown = enable;
+            RigidBody.isKinematic = enable;
             Animator.enabled = !enable;
             Collider.enabled = !enable;
 
             foreach (CharacterJoint ragJoint in Joints)
             {
-                ragJoint. enableCollision = enable;
+                ragJoint.enableCollision = enable;
             }
 
             foreach (Collider ragCollider in Colliders)
@@ -65,9 +66,7 @@ namespace GamePlay
 
             foreach (Rigidbody ragRigidBody in RigidBodies)
             {
-                ragRigidBody.detectCollisions = enable;
-                ragRigidBody.useGravity = useGravity;
-                ragRigidBody.velocity = Vector3.zero;
+                ragRigidBody.isKinematic = !enable;
             }
 
             if (direction != Vector3.zero)
@@ -81,8 +80,15 @@ namespace GamePlay
         private async void StartBagPackEvent()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_secondsToBackPack));
-            new RequestQueueCarryBodyEvent(_ragdollRoot).Invoke();
-            SetRagdoll(true, Vector3.zero, false);
+            SyncParentAndRootBone(true);
+            new RequestQueueCarryBodyEvent(transform).Invoke();
+        }
+
+        private void SyncParentAndRootBone(bool isEnable)
+        {
+            RigidBodies[0].isKinematic = RigidBody.isKinematic = isEnable;
+            RigidBodies[0].transform.position = transform.position;
+            //RigidBodies[0].transform.rotation = transform.rotation;
         }
     }
 }
