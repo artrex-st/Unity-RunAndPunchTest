@@ -8,6 +8,7 @@ namespace GamePlay
     {
         [SerializeField] private PlayerStatus _status;
         [SerializeField] private Transform _punchPoint;
+        [SerializeField] private Transform _carryPoint;
 
         private PlayerMover _playerMover;
         private PlayerPunch _playerPunch;
@@ -32,7 +33,7 @@ namespace GamePlay
             _inputManager = gameObject.AddComponent<InputManager>();
 
             _playerMover = gameObject.AddComponent<PlayerMover>();
-            _playerMover.Initialize(_status, RigidBody);
+            _playerMover.Initialize(_status, RigidBody, _carryPoint);
 
             _playerPunch = gameObject.AddComponent<PlayerPunch>();
             _playerPunch.Initialize(_inputManager, _status, _punchPoint);

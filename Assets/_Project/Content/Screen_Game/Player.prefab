@@ -71,7 +71,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420334826591123391}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 583d399de55c1f54f86e48a12febc200, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _status: {fileID: 11400000, guid: bfb9c3d8cd1a0134282a74e261b3c27e, type: 2}
   _punchPoint: {fileID: 8459914955128982044}
+  _carryPoint: {fileID: 2806832944994929625}
 --- !u!1 &3376203542613367998
 GameObject:
   m_ObjectHideFlags: 0

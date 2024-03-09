@@ -1,8 +1,20 @@
+using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 using Utility;
 
 namespace GamePlay
 {
+    public readonly struct RequestQueueCarryBodyEvent : IEvent
+    {
+        public readonly Transform BodyRootBone;
+
+        public RequestQueueCarryBodyEvent(Transform bodyRootBone)
+        {
+            BodyRootBone = bodyRootBone;
+        }
+    }
+
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
@@ -13,9 +25,9 @@ namespace GamePlay
         [SerializeField] private Transform _ragdollRoot;
         [SerializeField] private float _hitForce = 50f;
         [SerializeField] private float _hitUpForce = 1f;
+        [SerializeField] private float _secondsToBackPack = 1f;
 
         private Animator Animator => GetComponent<Animator>();
-        private Rigidbody RigidBody => GetComponent<Rigidbody>();
         private Collider Collider => GetComponent<Collider>();
         private Rigidbody[] RigidBodies => _ragdollRoot.GetComponentsInChildren<Rigidbody>();
         private CharacterJoint[] Joints => _ragdollRoot.GetComponentsInChildren<CharacterJoint>();
@@ -24,27 +36,22 @@ namespace GamePlay
 
         private void Start()
         {
-            SetRagdoll(false, Vector3.zero);
+            SetRagdoll(false, Vector3.zero, false);
         }
 
-        public void OnHit(PlayerPunch puncher, Vector3 direction)
+        public void OnHit(PlayerPunch player, Vector3 direction)
         {
-            //TODO: go to BackPack, disable primary rigidbody and colision
-            this.LogEditorOnly($"{puncher.gameObject.name} Hit Me ({gameObject.name})");
-            SetRagdoll(true, direction);
+            this.LogEditorOnly($"{player.gameObject.name} Hit Me ({gameObject.name})");
+            SetRagdoll(true, direction, true);
+            //TODO: go to BackPack
+            StartBagPackEvent();
         }
 
-        private void SetRagdoll(bool enable, Vector3 direction)
+        private void SetRagdoll(bool enable, Vector3 direction, bool useGravity)
         {
             IsKnockDown = enable;
             Animator.enabled = !enable;
             Collider.enabled = !enable;
-
-            if (direction != Vector3.zero)
-            {
-                direction = (transform.position - direction).normalized * _hitForce;
-                direction += Vector3.up * _hitUpForce;
-            }
 
             foreach (CharacterJoint ragJoint in Joints)
             {
@@ -59,9 +66,23 @@ namespace GamePlay
             foreach (Rigidbody ragRigidBody in RigidBodies)
             {
                 ragRigidBody.detectCollisions = enable;
-                ragRigidBody.useGravity = enable;
-                ragRigidBody.velocity = direction;
+                ragRigidBody.useGravity = useGravity;
+                ragRigidBody.velocity = Vector3.zero;
             }
+
+            if (direction != Vector3.zero)
+            {
+                direction = (transform.position - direction).normalized * _hitForce;
+                direction += Vector3.up * _hitUpForce;
+                RigidBodies[0].velocity = direction;
+            }
+        }
+
+        private async void StartBagPackEvent()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(_secondsToBackPack));
+            new RequestQueueCarryBodyEvent(_ragdollRoot).Invoke();
+            SetRagdoll(true, Vector3.zero, false);
         }
     }
 }
