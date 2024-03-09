@@ -24,6 +24,9 @@ public class ServicesSpawner : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(_eventSystem);
+#if !UNITY_EDITOR
+        Application.targetFrameRate = 60;
+#endif
         SpawnEventService();
         SpawnSaveDataService();
         SpawnSoundService();
