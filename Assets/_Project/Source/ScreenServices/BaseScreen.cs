@@ -1,5 +1,6 @@
 using DataService;
 using UnityEngine;
+using Utility;
 
 public class BaseScreen : MonoBehaviour
 {
@@ -14,15 +15,11 @@ public class BaseScreen : MonoBehaviour
         SaveDataService = ServiceLocator.Instance.GetService<ISaveDataService>();
         ScreenService = ServiceLocator.Instance.GetService<IScreenService>();
         SoundService = ServiceLocator.Instance.GetService<ISoundService>();
-#if UNITY_EDITOR
-        Debug.Log($"Initialize <color=white>{_thisScreenRef.SceneName}</color>");
-#endif
+        this.LogEditorOnly($"Initialize <color=white>{_thisScreenRef.SceneName}</color>");
     }
 
     protected void Dispose()
     {
-#if UNITY_EDITOR
-        Debug.Log($"Disposed <color=Green>{_thisScreenRef.SceneName}</color>");
-#endif
+        this.LogEditorOnly($"Disposed <color=Green>{_thisScreenRef.SceneName}</color>");
     }
 }

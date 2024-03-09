@@ -34,17 +34,14 @@ namespace GamePlay
             }
 
             _canPunch = false;
-            Vector3 center = transform.position;
 
             Collider[] results = new Collider[_playerStatus.MaxHitPerAttack];
-            int size = Physics.OverlapSphereNonAlloc(center, _playerStatus.PunchRadius, results, _playerStatus.HittableLayer);
+            int size = Physics.OverlapSphereNonAlloc(_punchPosition.position, _playerStatus.PunchRadius, results, _playerStatus.HittableLayer);
 
             if (size != 0)
             {
-                Debug.Log($"Hit: {size}");
                 for (int i = 0; i < size; i++)
                 {
-                    Debug.Log($"Hit: {results[i].gameObject.name}");
                     if (results[i].TryGetComponent(out IHittable hittable))
                     {
                         hittable.OnHit(this, transform.position);
@@ -59,12 +56,6 @@ namespace GamePlay
             {
                 _canPunch = true;
             }
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(_punchPosition.position, _playerStatus.PunchRadius+1f);
         }
     }
 }

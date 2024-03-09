@@ -49,14 +49,14 @@ namespace InputSystem {
             _inputsActions = new InputActions();
             _inputsActions.Player.Enable();
 
-            _inputsActions.Player.Move.started += MoveX;
-            _inputsActions.Player.Move.performed += MoveX;
-            _inputsActions.Player.Move.canceled += MoveX;
+            _inputsActions.Player.Move.started += Move;
+            _inputsActions.Player.Move.performed += Move;
+            _inputsActions.Player.Move.canceled += Move;
 
             _inputsActions.Player.Hit.started += HitStarted;
         }
 
-        private void MoveX(InputAction.CallbackContext context)
+        private void Move(InputAction.CallbackContext context)
         {
             new InputMoveEvent(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x, context.duration, context.phase).Invoke();
         }

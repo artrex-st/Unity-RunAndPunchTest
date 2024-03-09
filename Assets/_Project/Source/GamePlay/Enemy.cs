@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utility;
 
 namespace GamePlay
 {
@@ -29,7 +30,7 @@ namespace GamePlay
         public void OnHit(PlayerPunch puncher, Vector3 direction)
         {
             //TODO: go to BackPack, disable primary rigidbody and colision
-            Debug.Log($"{puncher.gameObject.name} Hit Me ({gameObject.name})");
+            this.LogEditorOnly($"{puncher.gameObject.name} Hit Me ({gameObject.name})");
             SetRagdoll(true, direction);
         }
 
