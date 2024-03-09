@@ -1,5 +1,7 @@
 using InputSystem;
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Utility;
 
@@ -20,13 +22,15 @@ namespace GamePlay
             _rigidBody = rigidBody;
             _carryPoint = carryPoint;
             new InputMoveEvent().AddListener(HandlerStartInputRotationEvent);
-            new RequestQueueCarryBodyEvent().AddListener(HandlerRequestQueueCarryBodyEvent);
+            new RequestBackpackBodyEvent().AddListener(HandlerRequestBackpackBodyEvent);
+            new RequestCommitBackpackEvent().AddListener(HandlerRequestCommitBackpackEvent);
         }
 
         public void Dispose()
         {
             new InputMoveEvent().RemoveListener(HandlerStartInputRotationEvent);
-            new RequestQueueCarryBodyEvent().RemoveListener(HandlerRequestQueueCarryBodyEvent);
+            new RequestBackpackBodyEvent().RemoveListener(HandlerRequestBackpackBodyEvent);
+            new RequestCommitBackpackEvent().RemoveListener(HandlerRequestCommitBackpackEvent);
         }
 
         private void Update()
@@ -93,11 +97,11 @@ namespace GamePlay
             new RequestMoveAnimationEvent(_inputSpeed).Invoke();
         }
 
-        private void HandlerRequestQueueCarryBodyEvent(RequestQueueCarryBodyEvent e)
+        private void HandlerRequestBackpackBodyEvent(RequestBackpackBodyEvent e)
         {
             Vector3 target;
 
-            if (_bodyPile.Count==0)
+            if (_bodyPile.Count == 0)
             {
                 target = _carryPoint.position + Vector3.up;
             }
@@ -108,6 +112,18 @@ namespace GamePlay
 
             e.BodyRootBone.position = target;
             _bodyPile.Add(e.BodyRootBone);
+        }
+
+        private void HandlerRequestCommitBackpackEvent(RequestCommitBackpackEvent e)
+        {
+            //TODO: objectPool?
+            new ResponseCommitBackpackEvent(_bodyPile.Count).Invoke();
+            foreach (Transform enemyTransform in _bodyPile)
+            {
+                enemyTransform.GameObject().SetActive(false);
+            }
+
+            _bodyPile.Clear();
         }
     }
 }

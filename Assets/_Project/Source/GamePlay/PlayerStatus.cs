@@ -11,6 +11,7 @@ public class PlayerStatus : ScriptableObject
     [SerializeField] private LayerMask _hittableLayer;
     [SerializeField][Range(0,10)] private int _maxHitPerAttack = 1;
     [Header("Carry")]
+    [SerializeField] private int _maxCarry = 2;
     [SerializeField] private float _pileCarrySpeed = 1;
 
     public float MoveSpeed => _moveSpeed;
@@ -18,6 +19,7 @@ public class PlayerStatus : ScriptableObject
     public float PunchRadius => _punchRadius;
     public LayerMask HittableLayer => _hittableLayer;
     public int MaxHitPerAttack => _maxHitPerAttack;
+    public int MaxCarry => _maxCarry;
     public float PileCarrySpeed => _pileCarrySpeed;
 }
 

@@ -102,6 +102,14 @@ MonoBehaviour:
   _status: {fileID: 11400000, guid: bfb9c3d8cd1a0134282a74e261b3c27e, type: 2}
   _punchPoint: {fileID: 8459914955128982044}
   _carryPoint: {fileID: 2806832944994929625}
+  _playerSkin: {fileID: 7000629993024230387}
+  _playerMaterials:
+  - {fileID: 2100000, guid: 9d453a4066f815e43a62e11f3c14c2eb, type: 2}
+  - {fileID: 2100000, guid: c3473ba1078797346a6e1fb3211e31ac, type: 2}
+  - {fileID: 2100000, guid: 0e455b2434a2c9d4395ca7f8ee5074cd, type: 2}
+  - {fileID: 2100000, guid: e769cdb5124378c40a7bb1dade515ba3, type: 2}
+  - {fileID: 2100000, guid: 76673e29585841e4ca291d10d440b5a5, type: 2}
+  - {fileID: 2100000, guid: dfcb81ff8d808334c8d6a671700141de, type: 2}
 --- !u!1 &3376203542613367998
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +279,11 @@ Transform:
 --- !u!4 &6592035549919327713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6473791464006618733, guid: 34bea9670b1b546438039b18a354a39b, type: 3}
+  m_PrefabInstance: {fileID: 192557889622260620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &7000629993024230387 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2050508362511701889, guid: 34bea9670b1b546438039b18a354a39b, type: 3}
   m_PrefabInstance: {fileID: 192557889622260620}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8182468188738249349 stripped

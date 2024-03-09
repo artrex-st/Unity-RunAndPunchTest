@@ -5,11 +5,11 @@ using Utility;
 
 namespace GamePlay
 {
-    public readonly struct RequestQueueCarryBodyEvent : IEvent
+    public readonly struct RequestBackpackBodyEvent : IEvent
     {
         public readonly Transform BodyRootBone;
 
-        public RequestQueueCarryBodyEvent(Transform bodyRootBone)
+        public RequestBackpackBodyEvent(Transform bodyRootBone)
         {
             BodyRootBone = bodyRootBone;
         }
@@ -81,7 +81,7 @@ namespace GamePlay
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_secondsToBackPack));
             SyncParentAndRootBone(true);
-            new RequestQueueCarryBodyEvent(transform).Invoke();
+            new RequestBackpackBodyEvent(transform).Invoke();
         }
 
         private void SyncParentAndRootBone(bool isEnable)

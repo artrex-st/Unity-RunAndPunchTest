@@ -1,5 +1,3 @@
-using InputSystem;
-using System;
 using UnityEngine;
 
 namespace GamePlay {
@@ -13,23 +11,12 @@ namespace GamePlay {
         }
     }
 
-    public readonly struct ResponsePunchAnimationEvent : IEvent
-    {
-        public readonly int InstanceId;
-
-        public ResponsePunchAnimationEvent(int speed)
-        {
-            InstanceId = speed;
-        }
-    }
-
     [RequireComponent(typeof(Animator))]
     public class PlayerAnimatorManager : MonoBehaviour
     {
         private static readonly int Move = Animator.StringToHash("Move");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int Punch = Animator.StringToHash("Punch");
-        private bool _canPunch = true;
 
         private Animator Animator => GetComponent<Animator>();
 
@@ -47,9 +34,7 @@ namespace GamePlay {
         {
             new ResponseGameStateUpdateEvent().AddListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().AddListener(HandlerRequestMoveAnimationEvent);
-            new ResponsePunchAnimationEvent().AddListener(HandlerResponsePunchAnimationEvent);
-            new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
-
+            new RequestPunchEvent().AddListener(HandlerRequestPunchEvent);
         }
 
         private void HandlerRequestNewGameStateEvent(ResponseGameStateUpdateEvent e)
@@ -63,29 +48,16 @@ namespace GamePlay {
             Animator.SetBool(IsMoving, e.Speed != 0);
         }
 
-        private void HandlerRequestInputPressEvent(RequestInputPressEvent e)
+        private void HandlerRequestPunchEvent(RequestPunchEvent e)
         {
-            if (_canPunch)
-            {
-                Animator.SetTrigger(Punch);
-                _canPunch = false;
-            }
-        }
-
-        private void HandlerResponsePunchAnimationEvent(ResponsePunchAnimationEvent e)
-        {
-            if (e.InstanceId == transform.parent.GetInstanceID())
-            {
-                _canPunch = true;
-            }
+            Animator.SetTrigger(Punch);
         }
 
         private void Dispose()
         {
             new ResponseGameStateUpdateEvent().RemoveListener(HandlerRequestNewGameStateEvent);
             new RequestMoveAnimationEvent().RemoveListener(HandlerRequestMoveAnimationEvent);
-            new ResponsePunchAnimationEvent().RemoveListener(HandlerResponsePunchAnimationEvent);
-            new RequestInputPressEvent().RemoveListener(HandlerRequestInputPressEvent);
+            new RequestPunchEvent().RemoveListener(HandlerRequestPunchEvent);
         }
     }
 }

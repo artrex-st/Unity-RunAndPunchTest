@@ -1,15 +1,28 @@
 using InputSystem;
 using System;
 using UnityEngine;
+using Utility;
 
 namespace GamePlay
 {
+    public readonly struct RequestPunchEvent : IEvent { }
+    public readonly struct ResponsePunchAnimationEvent : IEvent
+    {
+        public readonly int InstanceId;
+
+        public ResponsePunchAnimationEvent(int speed)
+        {
+            InstanceId = speed;
+        }
+    }
+
     public class PlayerPunch : MonoBehaviour
     {
         private InputManager _playerInput;
         private PlayerStatus _playerStatus;
         private Transform _punchPosition;
-        private bool _canPunch = true;
+        private bool _punchAnimationReady = true;
+        private bool _canCarry = true;
 
         public void Initialize(InputManager playerInput, PlayerStatus playerStatus ,Transform punchPosition)
         {
@@ -18,22 +31,25 @@ namespace GamePlay
             _punchPosition = punchPosition;
             new RequestInputPressEvent().AddListener(HandlerRequestInputPressEvent);
             new ResponsePunchAnimationEvent().AddListener(HandlerResponsePunchAnimationEvent);
+            new ResponseCanCarryEvent().AddListener(HandlerResponseCanCarryEvent);
         }
 
         public void Dispose()
         {
             new RequestInputPressEvent().RemoveListener(HandlerRequestInputPressEvent);
             new ResponsePunchAnimationEvent().RemoveListener(HandlerResponsePunchAnimationEvent);
+            new ResponseCanCarryEvent().RemoveListener(HandlerResponseCanCarryEvent);
         }
 
         private void HandlerRequestInputPressEvent(RequestInputPressEvent e)
         {
-            if (!_canPunch)
+            if (!_punchAnimationReady || !_canCarry)
             {
                 return;
             }
 
-            _canPunch = false;
+            new RequestPunchEvent().Invoke();
+            _punchAnimationReady = false;
 
             Collider[] results = new Collider[_playerStatus.MaxHitPerAttack];
             int size = Physics.OverlapSphereNonAlloc(_punchPosition.position, _playerStatus.PunchRadius, results, _playerStatus.HittableLayer);
@@ -45,6 +61,7 @@ namespace GamePlay
                     if (results[i].TryGetComponent(out IHittable hittable))
                     {
                         hittable.OnHit(this, transform.position);
+                        _canCarry = false;
                     }
                 }
             }
@@ -54,8 +71,14 @@ namespace GamePlay
         {
             if (e.InstanceId == transform.GetInstanceID())
             {
-                _canPunch = true;
+                _punchAnimationReady = true;
             }
+        }
+
+        private void HandlerResponseCanCarryEvent(ResponseCanCarryEvent e)
+        {
+            this.LogEditorOnly($"response CanCarry:{e.CanCarry}");
+            _canCarry = e.CanCarry;
         }
     }
 }
