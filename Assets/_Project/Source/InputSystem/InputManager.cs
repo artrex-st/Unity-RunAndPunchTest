@@ -4,15 +4,13 @@ using UnityEngine.InputSystem;
 namespace InputSystem {
     public readonly struct InputMoveEvent : IEvent
     {
-        public readonly float MoveDirection;
-        public readonly float MoveRotation;
+        public readonly Vector2 MoveDirection;
         public readonly double Duration;
         public readonly InputActionPhase CurrentPhase;
 
-        public InputMoveEvent(float moveDirection, float moveRotation, double duration, InputActionPhase currentPhase)
+        public InputMoveEvent(Vector2 moveDirection, double duration, InputActionPhase currentPhase)
         {
             MoveDirection = moveDirection;
-            MoveRotation = moveRotation;
             Duration = duration;
             CurrentPhase = currentPhase;
         }
@@ -58,7 +56,7 @@ namespace InputSystem {
 
         private void Move(InputAction.CallbackContext context)
         {
-            new InputMoveEvent(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x, context.duration, context.phase).Invoke();
+            new InputMoveEvent(context.ReadValue<Vector2>(), context.duration, context.phase).Invoke();
         }
 
         private void HitStarted(InputAction.CallbackContext context)

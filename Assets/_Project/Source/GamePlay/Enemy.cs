@@ -41,7 +41,6 @@ namespace GamePlay
 
         public void OnHit(PlayerPunch player, Vector3 direction)
         {
-            this.LogEditorOnly($"{player.gameObject.name} Hit Me ({gameObject.name})");
             SetRagdoll(true, direction);
             //TODO: go to BackPack
             StartBagPackEvent();

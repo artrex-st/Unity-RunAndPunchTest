@@ -1,7 +1,5 @@
 using InputSystem;
-using System;
 using UnityEngine;
-using Utility;
 
 namespace GamePlay
 {
@@ -77,7 +75,6 @@ namespace GamePlay
 
         private void HandlerResponseCanCarryEvent(ResponseCanCarryEvent e)
         {
-            this.LogEditorOnly($"response CanCarry:{e.CanCarry}");
             _canCarry = e.CanCarry;
         }
     }

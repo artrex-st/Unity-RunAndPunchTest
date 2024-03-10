@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 10
   _rotationSpeed: 200
+  _mapLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _punchRadius: 1
   _hittableLayer:
     serializedVersion: 2
     m_Bits: 128
   _maxHitPerAttack: 3
+  _maxCarry: 2
   _pileCarrySpeed: 10

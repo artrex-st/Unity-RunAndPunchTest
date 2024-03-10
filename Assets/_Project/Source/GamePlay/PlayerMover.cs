@@ -1,16 +1,14 @@
 using InputSystem;
-using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Utility;
 
 namespace GamePlay
 {
     public class PlayerMover : MonoBehaviour
     {
         private PlayerStatus _status;
-        private float _inputSpeed;
+        private float _inputDirection;
         private float _inputRotation;
         private Rigidbody _rigidBody;
         private Transform _carryPoint;
@@ -41,7 +39,7 @@ namespace GamePlay
 
         private void FixedUpdate()
         {
-            ApplySpeed();
+            ApplyMove();
         }
 
         private void ApplyRotation()
@@ -57,8 +55,6 @@ namespace GamePlay
             {
                 return;
             }
-
-            this.LogEditorOnly($"Carry {_bodyPile.Count}");
 
             for (int i = 0; i < _bodyPile.Count; i++)
             {
@@ -83,18 +79,22 @@ namespace GamePlay
             }
         }
 
-        private void ApplySpeed()
+        private void ApplyMove()
         {
-            Vector3 speed = transform.forward * (_inputSpeed * _status.MoveSpeed);
-            speed.y = _rigidBody.velocity.y;
-            _rigidBody.velocity = speed;
+            Vector3 move = transform.forward * (_inputDirection * _status.MoveSpeed);
+            Vector3 newPosition = transform.position + move * Time.deltaTime;
+
+            if (!Physics.Raycast(transform.position, transform.forward, move.magnitude * Time.deltaTime, _status.MapLayer))
+            {
+                _rigidBody.MovePosition(newPosition);
+            }
         }
 
         private void HandlerStartInputRotationEvent(InputMoveEvent e)
         {
-            _inputRotation = e.MoveRotation;
-            _inputSpeed = e.MoveDirection;
-            new RequestMoveAnimationEvent(_inputSpeed).Invoke();
+            _inputRotation = e.MoveDirection.x;
+            _inputDirection = e.MoveDirection.normalized.y;
+            new RequestMoveAnimationEvent(_inputDirection).Invoke();
         }
 
         private void HandlerRequestBackpackBodyEvent(RequestBackpackBodyEvent e)

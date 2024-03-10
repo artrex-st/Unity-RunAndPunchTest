@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Utility;
 
 namespace GamePlay
 {
@@ -13,7 +11,6 @@ namespace GamePlay
         {
             if (other.TryGetComponent(out PlayerController playerController))
             {
-                this.LogEditorOnly($"{playerController.name} Hit GoalTrigger");
                 new RequestCommitBackpackEvent().Invoke();
             }
         }

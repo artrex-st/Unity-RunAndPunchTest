@@ -68,12 +68,12 @@ namespace GamePlay
 
             _playerMover = gameObject.AddComponent<PlayerMover>();
             _playerMover.Initialize(_status, RigidBody, _carryPoint);
+            _playerMover.enabled = false;
 
             _playerPunch = gameObject.AddComponent<PlayerPunch>();
             _playerPunch.Initialize(_inputManager, _status, _punchPoint);
+            _playerPunch.enabled = false;
 
-            new ResponseBuyLevelUpEvent(_currentLevel * _status.MaxCarry).Invoke();
-            new RequestMoneyUiEvent(_bodyCommitCount, _currentLevel).Invoke();
             _playerSkin.materials[0] = _playerMaterials[_currentLevel];
         }
 
@@ -95,6 +95,8 @@ namespace GamePlay
             RigidBody.isKinematic = !_isGameRunning;
             _playerPunch.enabled = _isGameRunning;
             _playerMover.enabled = _isGameRunning;
+            new ResponseBuyLevelUpEvent(_currentLevel * _status.MaxCarry).Invoke();
+            new RequestMoneyUiEvent(_bodyCommitCount, _currentLevel).Invoke();
         }
 
         private void HandlerRequestCanCarryEvent(RequestCanCarryEvent e)
@@ -123,6 +125,7 @@ namespace GamePlay
                 _bodyCommitCount -= _currentLevel * _status.MaxCarry;
                 _currentLevel++;
                 new ResponseBuyLevelUpEvent(_currentLevel * _status.MaxCarry).Invoke();
+                new RequestCanCarryEvent().Invoke();
                 new RequestMoneyUiEvent(_bodyCommitCount, _currentLevel).Invoke();
                 _playerSkin.material = _playerMaterials[_currentLevel];
             }
